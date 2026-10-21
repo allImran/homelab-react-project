@@ -1,0 +1,73 @@
+@import "tailwindcss";
+
+/* liquid-glass-react ships Tailwind class names inside its bundle */
+@source "../../node_modules/liquid-glass-react/dist";
+
+@theme inline {
+  --color-obsidian: #040405;
+  --color-ivory: #efe8dc;
+  --color-mist: #a09fa6;
+  --color-amber: #e8a25c;
+  --color-coral: #e5806a;
+  --color-aurora: #86c9a8;
+  --color-line: #efe8dc1a;
+  --color-line-strong: #efe8dc33;
+
+  --font-serif: var(--font-cormorant), "Iowan Old Style", Georgia, serif;
+  --font-sans: var(--font-montserrat), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-plex-mono), ui-monospace, "SF Mono", monospace;
+
+  --animate-rise: rise 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(14px); filter: blur(6px); }
+    to { opacity: 1; transform: none; filter: none; }
+  }
+}
+
+/* Wide-tracked serif used for every display title, as on the reference site */
+@utility title-spaced {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: 0.32em;
+  margin-right: -0.32em;
+  text-transform: uppercase;
+}
+
+/* Small uppercase label for buttons, eyebrows and metadata */
+@utility label-caps {
+  font-family: var(--font-sans);
+  font-size: 0.625rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+/* Lightweight CSS glass for surfaces that flow with layout (cards, panels) */
+@utility glass {
+  background: color-mix(in oklab, var(--color-obsidian) 55%, transparent);
+  border: 1px solid var(--color-line);
+  backdrop-filter: blur(18px) saturate(140%);
+  -webkit-backdrop-filter: blur(18px) saturate(140%);
+}
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  background: var(--color-obsidian);
+  color: var(--color-ivory);
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: color-mix(in oklab, var(--color-amber) 40%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
