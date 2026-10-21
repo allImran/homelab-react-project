@@ -19,7 +19,12 @@ interface LiquidGlassFrameProps {
  * liquid-glass-react renders several stacked layers centered with
  * `top/left: 50%` + `translate(-50%)`, so it needs a positioned frame around it.
  */
-export function LiquidGlassFrame({ children, className, cornerRadius = 999, padding = "8px 10px" }: LiquidGlassFrameProps) {
+export function LiquidGlassFrame({
+  children,
+  className,
+  cornerRadius = 999,
+  padding = "8px 10px",
+}: LiquidGlassFrameProps) {
   return (
     <div className={cn("relative", className)}>
       <LiquidGlass

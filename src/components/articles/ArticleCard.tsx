@@ -11,7 +11,7 @@ export function ArticleCard({ article, action }: ArticleCardProps) {
   const { url, title, summary, imageUrl, publishedAt, sourceName } = article;
 
   return (
-    <article className="glass group relative flex flex-col overflow-hidden rounded-3xl transition-colors hover:border-line-strong">
+    <article className="surface group relative flex flex-col overflow-hidden rounded-3xl transition-colors hover:border-line-strong">
       {imageUrl && (
         <div className="aspect-[16/9] overflow-hidden">
           {/* Arbitrary publisher hosts: a plain <img> avoids proxying untrusted URLs through the image optimizer. */}

@@ -27,12 +27,7 @@ function truncate(text: string, max: number): string {
 function extractImage(item: RawFeedItem): string | null {
   const enclosure = item.enclosure?.type?.startsWith("image/") ? item.enclosure.url : undefined;
   const imageFromHtml = item.content?.match(/<img[^>]+src=["']([^"']+)["']/i)?.[1];
-  const candidates = [
-    first(item.mediaContent)?.$?.url,
-    first(item.mediaThumbnail)?.$?.url,
-    enclosure,
-    imageFromHtml,
-  ];
+  const candidates = [first(item.mediaContent)?.$?.url, first(item.mediaThumbnail)?.$?.url, enclosure, imageFromHtml];
   return candidates.map(toSafeHttpUrl).find(Boolean) ?? null;
 }
 

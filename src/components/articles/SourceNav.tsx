@@ -32,11 +32,22 @@ export function SourceNav({ sources, activeId, onSelect }: SourceNavProps) {
           </>
         );
         return onSelect ? (
-          <button key={id} type="button" className={chipClass(isActive)} aria-pressed={isActive} onClick={() => onSelect(id)}>
+          <button
+            key={id}
+            type="button"
+            className={chipClass(isActive)}
+            aria-pressed={isActive}
+            onClick={() => onSelect(id)}
+          >
             {content}
           </button>
         ) : (
-          <Link key={id} href={feedPath(id)} className={chipClass(isActive)} aria-current={isActive ? "page" : undefined}>
+          <Link
+            key={id}
+            href={feedPath(id)}
+            className={chipClass(isActive)}
+            aria-current={isActive ? "page" : undefined}
+          >
             {content}
           </Link>
         );

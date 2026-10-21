@@ -46,7 +46,8 @@ export function useSavedArticles() {
     (url: string) => {
       const target = byUrl.get(url);
       if (!target) return Promise.resolve();
-      const without = (current: SavedList | undefined) => withList(current, (items) => items.filter((a) => a.url !== url));
+      const without = (current: SavedList | undefined) =>
+        withList(current, (items) => items.filter((a) => a.url !== url));
       return mutate(
         async (current) => {
           await savedArticlesApi.remove(target.id);

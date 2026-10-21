@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { SiteFooter } from "@/components/layout/SiteFooter";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { SmoothScroll } from "@/components/scroll/SmoothScroll";
 import { fontVariables } from "./fonts";
 import "./globals.css";
 
@@ -15,9 +16,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${fontVariables} antialiased`}>
       <body className="flex min-h-dvh flex-col">
-        <SiteHeader />
-        <div className="flex-1">{children}</div>
-        <SiteFooter />
+        <SmoothScroll>
+          <SiteHeader />
+          <div className="flex-1">{children}</div>
+          <SiteFooter />
+        </SmoothScroll>
       </body>
     </html>
   );

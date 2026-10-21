@@ -13,13 +13,13 @@ npm run db:migrate                  # creates data/app.db
 npm run dev
 ```
 
-| Script | Purpose |
-| --- | --- |
-| `npm run dev` / `build` / `start` | Next.js |
-| `npm run lint` / `typecheck` | Quality gates |
-| `npm run db:generate` | Create a migration from schema changes |
-| `npm run db:migrate` | Apply migrations |
-| `npm run db:studio` | Browse the database |
+| Script                            | Purpose                                |
+| --------------------------------- | -------------------------------------- |
+| `npm run dev` / `build` / `start` | Next.js                                |
+| `npm run lint` / `typecheck`      | Quality gates                          |
+| `npm run db:generate`             | Create a migration from schema changes |
+| `npm run db:migrate`              | Apply migrations                       |
+| `npm run db:studio`               | Browse the database                    |
 
 ## Project layout
 
@@ -51,17 +51,24 @@ src/
 
 Request flow: **route handler → service → repository interface → Drizzle**. Services never import Drizzle, so the storage engine can change underneath them.
 
+## Performance notes
+
+- **Liquid logo** is pre-processed at build time (`scripts/process-liquid-logo.mjs`). Paper's `<LiquidMetal image>` otherwise re-processes the SVG at 4096px on every mount (~700ms main-thread block, 1.5MB blob).
+- **WebGL** scenes are lazy-loaded, fade in when ready, and pause when off-screen. The feeds starfield uses `frameloop="demand"` and only redraws while scrolling.
+- **Glass:** `glass` (backdrop-filter) is for single panels only. Repeated items use `surface`, because a backdrop blur over an animating canvas is recomputed every frame.
+- **Scrolling:** Lenis (the engine behind Locomotive Scroll v5) with `<Parallax speed>` and `<Reveal>` in `src/components/scroll/`. Above-the-fold reveals use `eager` so they never wait for JavaScript. All of it is disabled under `prefers-reduced-motion`.
+
 ## API
 
 All responses use one envelope: `{ data, meta? }` on success, `{ error: { code, message, details? } }` on failure.
 
-| Method | Path | Auth | Notes |
-| --- | --- | --- | --- |
-| GET | `/api/v1/feeds` | – | Available sources |
-| GET | `/api/v1/feeds/:sourceId` | – | Normalized articles (cached ~minutes) |
-| GET | `/api/v1/saved?limit=30&cursor=` | ✓ | Keyset-paginated; `meta.nextCursor` |
-| POST | `/api/v1/saved` | ✓ | Idempotent per (user, url); `201` |
-| DELETE | `/api/v1/saved/:id` | ✓ | `204`, or `404` if not yours |
+| Method | Path                             | Auth | Notes                                 |
+| ------ | -------------------------------- | ---- | ------------------------------------- |
+| GET    | `/api/v1/feeds`                  | –    | Available sources                     |
+| GET    | `/api/v1/feeds/:sourceId`        | –    | Normalized articles (cached ~minutes) |
+| GET    | `/api/v1/saved?limit=30&cursor=` | ✓    | Keyset-paginated; `meta.nextCursor`   |
+| POST   | `/api/v1/saved`                  | ✓    | Idempotent per (user, url); `201`     |
+| DELETE | `/api/v1/saved/:id`              | ✓    | `204`, or `404` if not yours          |
 
 ## Moving to Postgres
 

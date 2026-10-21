@@ -26,10 +26,7 @@ function afterCursor(rawCursor: string | undefined) {
   const cursor = decodeCursor(rawCursor);
   if (!cursor) return undefined;
   const savedAt = new Date(cursor.timestamp);
-  return or(
-    lt(savedArticle.savedAt, savedAt),
-    and(eq(savedArticle.savedAt, savedAt), lt(savedArticle.id, cursor.id)),
-  );
+  return or(lt(savedArticle.savedAt, savedAt), and(eq(savedArticle.savedAt, savedAt), lt(savedArticle.id, cursor.id)));
 }
 
 export const drizzleSavedArticleRepository: SavedArticleRepository = {

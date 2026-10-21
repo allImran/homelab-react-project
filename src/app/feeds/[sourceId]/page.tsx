@@ -22,7 +22,12 @@ export async function generateMetadata({ params }: PageProps<"/feeds/[sourceId]"
 async function FeedArticles({ sourceId }: { sourceId: string }) {
   const articles = await getFeedArticles(sourceId);
   if (articles.length === 0) {
-    return <EmptyState title="Quiet skies" description="This feed couldn't be reached right now. Try another source or check back soon." />;
+    return (
+      <EmptyState
+        title="Quiet skies"
+        description="This feed couldn't be reached right now. Try another source or check back soon."
+      />
+    );
   }
   return <ArticleGrid articles={articles} />;
 }
@@ -33,7 +38,12 @@ export default async function FeedPage({ params }: PageProps<"/feeds/[sourceId]"
 
   return (
     <PageContainer className="flex flex-col gap-10">
-      <SectionHeading as="h1" eyebrow={source.category} title={source.name} description="Latest headlines, refreshed every few minutes." />
+      <SectionHeading
+        as="h1"
+        eyebrow={source.category}
+        title={source.name}
+        description="Latest headlines, refreshed every few minutes."
+      />
       <SourceNav sources={FEED_SOURCES} activeId={source.id} />
       <Suspense fallback={<ArticleGridSkeleton />}>
         <FeedArticles sourceId={source.id} />

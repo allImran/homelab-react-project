@@ -10,7 +10,14 @@ interface SectionHeadingProps {
   className?: string;
 }
 
-export function SectionHeading({ eyebrow, title, description, align = "left", as: Tag = "h2", className }: SectionHeadingProps) {
+export function SectionHeading({
+  eyebrow,
+  title,
+  description,
+  align = "left",
+  as: Tag = "h2",
+  className,
+}: SectionHeadingProps) {
   return (
     <header className={cn("flex flex-col gap-4", align === "center" && "items-center text-center", className)}>
       {eyebrow && <p className="label-caps text-amber/90">{eyebrow}</p>}

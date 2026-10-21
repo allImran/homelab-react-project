@@ -49,7 +49,12 @@ export function Planet({ id, label, color, orbitRadius, size, speed, phase, onSe
         }}
       >
         <sphereGeometry args={[size, 48, 48]} />
-        <meshStandardMaterial color={color} emissive={color} emissiveIntensity={hovered ? 0.6 : 0.18} roughness={0.55} />
+        <meshStandardMaterial
+          color={color}
+          emissive={color}
+          emissiveIntensity={hovered ? 0.6 : 0.18}
+          roughness={0.55}
+        />
       </mesh>
       {hovered && (
         <Html center distanceFactor={9} position={[0, size + 0.45, 0]} className="pointer-events-none">
